@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f2" />
+    <meta
+      name="description"
+      content="Sumboard — bảng dự trù gọn gàng cho kế hoạch của bạn. Tính chi phí, chỉnh ngân sách và lưu trên máy, không cần tài khoản."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' ws://127.0.0.1:*; object-src 'none'; base-uri 'self'"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Sumboard — Mọi khoản, trong tầm tay</title>
+  </head>
+  <body>
+    <noscript
+      >Sumboard cần JavaScript để chỉnh bảng và tính tổng. Dữ liệu chỉ lưu trong
+      trình duyệt này.</noscript
+    >
+    <div id="app" g-scope="Sumboard" g-cloak>
+      <header class="topbar">
+        <a href="./" class="brand" aria-label="Sumboard, trang chủ"
+          ><span class="brand-icon" aria-hidden="true">∑</span>sumboard<span
+            class="brand-dot"
+            >.</span
+          ></a
+        >
+        <span class="top-caption">KẾ HOẠCH NHỎ. RÕ TỪNG KHOẢN.</span>
+        <button class="quiet help" @click="help()">
+          <span aria-hidden="true">?</span> Cách dùng
+        </button>
+      </header>
+      <main>
+        <section class="intro" aria-label="Thông tin kế hoạch">
+          <div>
+            <p class="eyebrow">
+              <span class="tiny-grid" aria-hidden="true">▦</span> KHÔNG GIAN CỦA
+              BẠN <span>/</span> 01
+            </p>
+            <label for="plan-title" class="sr-only">Tên kế hoạch</label>
+            <input
+              id="plan-title"
+              class="plan-title"
+              :value="doc().title"
+              maxlength="100"
+              @input="draft()"
+              @change="editPlan($event, 'title')"
+              @keydown="planKey($event, 'title')"
+            />
+            <p class="subtitle">
+              Từ ý tưởng đến từng con số. Bắt đầu ngay trên bảng này.
+            </p>
+          </div>
+          <div
+            class="save-indicator"
+            :class="saveState() === 'saved' ? 'save-indicator saved' : 'save-indicator'"
+          >
+            <span class="status-dot" aria-hidden="true"></span
+            ><span role="status">{saveLabel()}</span>
+          </div>
+        </section>
+
+        <div
+          class="recovery"
+          g-show="saveState() === 'error' || saveState() === 'conflict'"
+        >
+          <div>
+            <strong>Bản đang mở vẫn ở đây.</strong>
+            <p>
+              Tự lưu đang tạm dừng. Xuất JSON để giữ một bản sao trước khi chọn
+              bản muốn tiếp tục.
+            </p>
+          </div>
+          <div class="button-row">
+            <button @click="exportFile('json')">Xuất bản đang mở</button
+            ><button @click="restore()">Dùng bản lưu</button
+            ><button @click="overwrite()">Ghi bản đang mở</button>
+          </div>
+        </div>
+        <p class="error-banner" role="alert" g-show="error()">{error()}</p>
+
+        <section class="overview" aria-label="Tổng quan chi phí">
+          <article class="stat-card total-card">
+            <div class="stat-label">
+              DỰ TRÙ TOÀN BẢNG <span aria-hidden="true">↗</span>
+            </div>
+            <strong class="stat-number" data-testid="total"
+              >{money(summary().total)}</strong
+            >
+            <span class="stat-note"
+              >{summary().included} khoản đang tính · {doc().rows.length}
+              dòng</span
+            >
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">
+              ĐÃ THANH TOÁN <span class="check-icon" aria-hidden="true">✓</span>
+            </div>
+            <strong class="stat-number" data-testid="paid"
+              >{money(summary().paid)}</strong
+            >
+            <span class="stat-note"
+              >Còn thanh toán <b>{money(summary().unpaid)}</b></span
+            >
+          </article>
+          <article
+            class="stat-card"
+            :class="remaining() &lt; 0 ? 'stat-card over-budget' : 'stat-card'"
+          >
+            <div class="stat-label">
+              {remaining() &lt; 0 ? 'VƯỢT NGÂN SÁCH' : 'NGÂN SÁCH CÒN LẠI'}
+              <span aria-hidden="true">◷</span>
+            </div>
+            <strong class="stat-number" data-testid="remaining"
+              >{money(remaining() &lt; 0 ? -remaining() : remaining())}</strong
+            >
+            <span class="stat-note"
+              >{doc().budget === 0 ? 'Đặt ngân sách ở phần bên cạnh' : 'So với
+              ngân sách ' + money(doc().budget)}</span
+            >
+          </article>
+        </section>
+
+        <div class="workspace">
+          <section class="sheet-panel" aria-labelledby="sheet-heading">
+            <div class="panel-heading">
+              <div class="sheet-heading">
+                <span class="sheet-icon" aria-hidden="true">▤</span>
+                <h1 id="sheet-heading">Bảng chi phí</h1>
+                <span class="count-pill">{doc().rows.length}</span>
+              </div>
+              <div class="button-row">
+                <button
+                  class="icon-button"
+                  aria-label="Hoàn tác"
+                  title="Hoàn tác (Ctrl/Cmd+Z khi ngoài ô)"
+                  :disabled="undoCount() === 0"
+                  @click="undo()"
+                >
+                  ↶
+                </button>
+                <button
+                  class="icon-button"
+                  aria-label="Làm lại"
+                  title="Làm lại (Ctrl/Cmd+Shift+Z khi ngoài ô)"
+                  :disabled="redoCount() === 0"
+                  @click="redo()"
+                >
+                  ↷
+                </button>
+                <span class="divider"></span>
+                <button
+                  id="add-row"
+                  class="primary"
+                  @click="add()"
+                  :disabled="doc().rows.length >= 500"
+                >
+                  <span aria-hidden="true">＋</span> Thêm dòng
+                </button>
+              </div>
+            </div>
+            <div class="toolbar">
+              <label class="search-box"
+                ><span aria-hidden="true">⌕</span
+                ><input
+                  id="search"
+                  aria-label="Tìm hạng mục"
+                  placeholder="Tìm hạng mục..."
+                  g-model="search"
+                  type="search"
+              /></label>
+              <select aria-label="Lọc nhóm" g-model="category">
+                <option value="">Tất cả nhóm</option>
+                <option *for="name in categories()" g-key="name" :value="name">
+                  {name}
+                </option>
+              </select>
+              <select aria-label="Lọc trạng thái" g-model="status">
+                <option value="">Mọi trạng thái</option>
+                <option value="unpaid">Chưa thanh toán</option>
+                <option value="paid">Đã thanh toán</option>
+                <option value="excluded">Không tính tổng</option>
+              </select>
+              <select aria-label="Sắp xếp" g-model="sort">
+                <option value="original">Thứ tự gốc</option>
+                <option value="name">Tên A → Z</option>
+                <option value="amount-desc">Tiền giảm dần</option>
+                <option value="amount-asc">Tiền tăng dần</option>
+              </select>
+            </div>
+            <div
+              class="table-scroll"
+              tabindex="0"
+              role="region"
+              aria-label="Bảng có thể cuộn ngang"
+              aria-describedby="table-hint"
+            >
+              <table>
+                <caption class="sr-only">
+                  Chỉnh từng ô, nhấn Enter hoặc rời ô để ghi. Số tiền dùng VND.
+                </caption>
+                <thead>
+                  <tr>
+                    <th class="row-number" scope="col">#</th>
+                    <th scope="col">Hạng mục</th>
+                    <th scope="col">Nhóm</th>
+                    <th scope="col" class="numeric">Số lượng</th>
+                    <th scope="col" class="numeric">
+                      Đơn giá <small>₫</small>
+                    </th>
+                    <th scope="col" class="numeric">
+                      Thành tiền <small>₫</small>
+                    </th>
+                    <th scope="col" class="center">Tính tổng</th>
+                    <th scope="col" class="center">Đã trả</th>
+                    <th scope="col">
+                      <span class="sr-only">Thao tác dòng</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *for="row, index in visible()"
+                    g-key="row.id"
+                    :data-row="row.id"
+                    :class="row.included ? '' : 'excluded'"
+                  >
+                    <td class="row-number">{index + 1}</td>
+                    <td class="name-cell">
+                      <input
+                        :aria-label="'Hạng mục dòng ' + (index + 1)"
+                        data-field="name"
+                        :value="row.name"
+                        maxlength="160"
+                        @input="draft()"
+                        @change="editCell($event, row.id, 'name')"
+                        @keydown="cellKey($event, row.id, 'name')"
+                      />
+                    </td>
+                    <td class="category-cell">
+                      <input
+                        :aria-label="'Nhóm dòng ' + (index + 1)"
+                        data-field="category"
+                        :value="row.category"
+                        maxlength="48"
+                        list="category-list"
+                        @input="draft()"
+                        @change="editCell($event, row.id, 'category')"
+                        @keydown="cellKey($event, row.id, 'category')"
+                      />
+                    </td>
+                    <td class="quantity-cell">
+                      <input
+                        :aria-label="'Số lượng dòng ' + (index + 1)"
+                        data-field="quantity"
+                        :value="row.quantity"
+                        inputmode="decimal"
+                        @input="draft()"
+                        @change="editCell($event, row.id, 'quantity')"
+                        @keydown="cellKey($event, row.id, 'quantity')"
+                      />
+                    </td>
+                    <td class="price-cell">
+                      <input
+                        :aria-label="'Đơn giá dòng ' + (index + 1)"
+                        data-field="price"
+                        :value="row.price"
+                        inputmode="numeric"
+                        @input="draft()"
+                        @change="editCell($event, row.id, 'price')"
+                        @keydown="cellKey($event, row.id, 'price')"
+                      />
+                    </td>
+                    <td class="amount-cell">{money(amount(row))}</td>
+                    <td class="center">
+                      <input
+                        type="checkbox"
+                        :aria-label="'Tính vào tổng: ' + row.name"
+                        :checked="row.included"
+                        @change="toggle($event, row.id, 'included')"
+                      />
+                    </td>
+                    <td class="center">
+                      <input
+                        type="checkbox"
+                        :aria-label="'Đã thanh toán: ' + row.name"
+                        :checked="row.paid"
+                        @change="toggle($event, row.id, 'paid')"
+                      />
+                    </td>
+                    <td class="row-actions">
+                      <button
+                        class="mini-button"
+                        :aria-label="'Nhân đôi: ' + row.name"
+                        title="Nhân đôi dòng"
+                        @click="duplicate(row.id)"
+                      >
+                        ⧉</button
+                      ><button
+                        class="mini-button delete"
+                        :aria-label="'Xóa: ' + row.name"
+                        title="Xóa dòng (có thể hoàn tác)"
+                        @click="remove(row.id)"
+                      >
+                        ×
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="empty-state" g-show="visible().length === 0">
+                <span class="empty-icon" aria-hidden="true">▤</span>
+                <h2>
+                  {doc().rows.length === 0 ? 'Chỗ cho kế hoạch mới.' : 'Chưa tìm
+                  thấy hạng mục.'}
+                </h2>
+                <p>
+                  {doc().rows.length === 0 ? 'Thêm khoản đầu tiên, những con số
+                  còn lại sẽ tự nối tiếp.' : 'Thử một từ khóa khác hoặc bỏ bộ
+                  lọc đang dùng.'}
+                </p>
+                <button @click="clearFilters()" g-show="doc().rows.length > 0">
+                  Bỏ bộ lọc</button
+                ><button
+                  class="primary"
+                  @click="add()"
+                  g-show="doc().rows.length === 0"
+                >
+                  ＋ Thêm khoản đầu tiên
+                </button>
+              </div>
+            </div>
+            <div class="table-footer">
+              <span>Hiện {visible().length} / {doc().rows.length} dòng</span
+              ><span
+                >Phần đang hiện
+                <strong data-testid="filtered-total"
+                  >{money(filtered().total)}</strong
+                ></span
+              >
+            </div>
+            <div class="sheet-hint" id="table-hint">
+              <span aria-hidden="true">↵</span> Enter để ghi & xuống dòng
+              <span>·</span> Shift+Enter đi lên <span>·</span> Esc bỏ sửa
+              <span>·</span> Tab sang ô
+              <span class="scroll-hint">↔ Cuộn ngang để xem đủ cột</span>
+            </div>
+          </section>
+
+          <aside class="sidebar" aria-label="Ngân sách và phân bổ">
+            <section class="budget-card">
+              <div class="aside-heading">
+                <h2>Giữ trong kế hoạch</h2>
+                <span aria-hidden="true">◎</span>
+              </div>
+              <label for="budget">Ngân sách của bạn <small>VND</small></label>
+              <input
+                id="budget"
+                :value="doc().budget"
+                inputmode="numeric"
+                @input="draft()"
+                @change="editPlan($event, 'budget')"
+                @keydown="planKey($event, 'budget')"
+              />
+              <div
+                class="budget-meter"
+                role="progressbar"
+                aria-label="Phần ngân sách đã dự trù"
+                :aria-valuenow="progress()"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <span
+                  :style="'width:' + progress() + '%'"
+                  :class="remaining() &lt; 0 ? 'over' : ''"
+                ></span>
+              </div>
+              <p>
+                {doc().budget > 0 ? (remaining() &lt; 0 ? 'Cần cân đối thêm ' +
+                money(-remaining()) : 'Còn dư ' + money(remaining()) + ' cho ý
+                tưởng khác.') : 'Đặt một giới hạn để theo dõi chi phí.'}
+              </p>
+            </section>
+            <section class="allocation-card">
+              <div class="aside-heading">
+                <h2>Tiền đi đâu?</h2>
+                <span class="small-label">TOÀN BẢNG</span>
+              </div>
+              <div
+                class="allocation"
+                *for="group in summary().groups"
+                g-key="group.name"
+              >
+                <div>
+                  <span>{group.name}</span><b>{percent(group.amount)}%</b>
+                </div>
+                <div class="allocation-bar">
+                  <span :style="'width:' + percent(group.amount) + '%'"></span>
+                </div>
+                <small>{money(group.amount)}</small>
+              </div>
+              <p class="muted" g-show="summary().groups.length === 0">
+                Các khoản được chọn “Tính tổng” sẽ xuất hiện ở đây.
+              </p>
+            </section>
+            <div class="local-note">
+              <span aria-hidden="true">⌂</span>
+              <p>
+                <strong>Chỉ ở trên máy bạn.</strong>Không tài khoản, không gửi
+                bảng lên máy chủ. Xuất JSON để có bản sao an toàn.
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <section class="file-bar" aria-label="Quản lý bảng">
+          <div>
+            <span class="small-label">BẢNG CỦA BẠN</span>
+            <p>Lưu một bản. Mang kế hoạch đi cùng.</p>
+          </div>
+          <div class="button-row file-actions">
+            <button @click="exportFile('json')">↓ Xuất JSON</button
+            ><button @click="exportFile('csv')">↓ Xuất CSV</button>
+            <label
+              class="file-button"
+              :class="importing() ? 'file-button busy' : 'file-button'"
+              >↑ {importing() ? 'Đang đọc…' : 'Nhập JSON'}<input
+                id="import-file"
+                type="file"
+                accept=".json,application/json"
+                @change="importFile($event)"
+                :disabled="importing()"
+                aria-label="Nhập file JSON"
+            /></label>
+            <button class="quiet" @click="reset()">Bảng trống</button
+            ><button class="quiet" @click="sample()">Bảng mẫu</button>
+          </div>
+        </section>
+        <p class="notice" role="status">{notice()}</p>
+        <footer>
+          <span
+            >sumboard <span aria-hidden="true">/</span> Mọi khoản, trong tầm
+            tay.</span
+          ><span
+            >VND · Tối đa 500 dòng <span class="footer-dot">·</span> Built with
+            GyosJS</span
+          >
+        </footer>
+      </main>
+      <datalist id="category-list">
+        <option value="Không gian"></option>
+        <option value="Nội dung"></option>
+        <option value="Ăn uống"></option>
+        <option value="Vật dụng"></option>
+        <option value="Khác"></option>
+      </datalist>
+      <dialog id="sheet-dialog" aria-labelledby="dialog-title">
+        <div class="dialog-top">
+          <span class="eyebrow">SUMBOARD</span
+          ><button
+            class="icon-button"
+            aria-label="Đóng hộp thoại"
+            @click="close()"
+          >
+            ×
+          </button>
+        </div>
+        <h2 id="dialog-title">{dialogTitle()}</h2>
+        <div g-show="dialogMode() === 'help'" class="help-content">
+          <p>
+            Sửa trực tiếp các ô. <strong>Enter</strong> ghi và xuống dòng,
+            <strong>Shift+Enter</strong> đi lên, <strong>Tab</strong> sang ô;
+            <strong>Esc</strong> bỏ nội dung đang sửa.
+          </p>
+          <p>
+            Số tiền là VND nguyên, không nhập dấu phân cách hàng nghìn. Số lượng
+            cho phép tối đa 3 số thập phân (ví dụ 1,5). Thành tiền từng dòng làm
+            tròn đến đồng gần nhất; 0,5 làm tròn lên.
+          </p>
+          <p>
+            <strong>Tính tổng</strong> chọn khoản nằm trong kế hoạch; bỏ chọn
+            vẫn giữ dòng. <strong>Đã trả</strong> đánh dấu khoản đã thanh toán
+            đủ, chưa hỗ trợ trả một phần.
+          </p>
+          <p>
+            Bộ lọc chỉ đổi phần đang nhìn. Các thẻ tổng và phân bổ luôn tính
+            toàn bảng; “Phần đang hiện” tính riêng những dòng đang thấy và được
+            chọn tính tổng.
+          </p>
+          <p>
+            Hoàn tác tối đa 80 bước trong phiên này. Khi ngoài ô nhập, dùng
+            <strong>Ctrl/Cmd+Z</strong> và <strong>Ctrl/Cmd+Shift+Z</strong>.
+            Trong ô, giữ hành vi undo của trình duyệt.
+            <strong>Ctrl/Cmd+S</strong> xuất JSON.
+          </p>
+          <p>
+            JSON giữ đủ dữ liệu để nhập lại; CSV dùng cho ứng dụng bảng tính
+            khác. Một bảng tối đa 500 dòng, file nhập tối đa 2 MB. Chưa có công
+            thức tùy ý, nhiều sheet hay đồng bộ đám mây.
+          </p>
+          <p>
+            Bản lưu thuộc trình duyệt và địa chỉ web này; xóa dữ liệu trình
+            duyệt sẽ mất bản lưu. Hai tab thay đổi cùng lúc có thể xung đột —
+            nên sửa ở một tab và xuất JSON định kỳ.
+          </p>
+        </div>
+        <p g-show="dialogMode() === 'confirm'">{dialogText()}</p>
+        <div class="dialog-buttons">
+          <button @click="close()">
+            {dialogMode() === 'help' ? 'Đã hiểu' : 'Hủy'}</button
+          ><button
+            class="primary"
+            g-show="dialogMode() === 'confirm'"
+            @click="confirm()"
+          >
+            Xác nhận
+          </button>
+        </div>
+      </dialog>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
