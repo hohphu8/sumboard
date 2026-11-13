@@ -46,6 +46,28 @@ Gyos.scope("Sumboard", () => {
       ? Math.min(100, (sheet.summary().total / sheet.document().budget) * 100)
       : 0,
   );
+  const budgetCaption = Gyos.computed(() =>
+    sheet.document().budget === 0
+      ? "Đặt ngân sách ở phần bên cạnh"
+      : "So với ngân sách " + money(sheet.document().budget),
+  );
+  const budgetMessage = Gyos.computed(() =>
+    sheet.document().budget === 0
+      ? "Đặt một giới hạn để theo dõi chi phí."
+      : remaining() < 0
+        ? "Cần cân đối thêm " + money(-remaining())
+        : "Còn dư " + money(remaining()) + " cho ý tưởng khác.",
+  );
+  const emptyTitle = Gyos.computed(() =>
+    sheet.document().rows.length === 0
+      ? "Chỗ cho kế hoạch mới."
+      : "Chưa tìm thấy hạng mục.",
+  );
+  const emptyText = Gyos.computed(() =>
+    sheet.document().rows.length === 0
+      ? "Thêm khoản đầu tiên, những con số còn lại sẽ tự nối tiếp."
+      : "Thử một từ khóa khác hoặc bỏ bộ lọc đang dùng.",
+  );
   const saveLabel = Gyos.computed(() =>
     editing()
       ? "Đang sửa ô · Enter để ghi"
@@ -158,12 +180,12 @@ Gyos.scope("Sumboard", () => {
     dialogMode("");
     if (returnFocus?.isConnected) returnFocus.focus();
   }
-  function open(mode, title, detail, callback) {
+  function open(mode, title, detail, callback, trigger) {
     if (!alive) return;
     generation++;
     importing(false);
     pending = callback;
-    returnFocus = document.activeElement;
+    returnFocus = trigger || document.activeElement;
     Gyos.batch(() => {
       dialogMode(mode);
       dialogTitle(title);
@@ -236,6 +258,7 @@ Gyos.scope("Sumboard", () => {
             next,
             "Đã nhập bảng. Có thể hoàn tác để trở về bản trước.",
           ),
+        event.target,
       );
     } catch (problem) {
       if (alive && current === generation) report(problem.message);
@@ -243,7 +266,7 @@ Gyos.scope("Sumboard", () => {
       if (alive && current === generation) importing(false);
     }
   }
-  function restore() {
+  function restore(event) {
     open(
       "confirm",
       "Mở bản lưu trên máy?",
@@ -258,9 +281,14 @@ Gyos.scope("Sumboard", () => {
         sheet.load(saved.document || blankDocument());
         notice("Đã mở bản lưu trên máy.");
       },
+      event?.currentTarget,
     );
   }
   return {
+    budgetCaption,
+    budgetMessage,
+    emptyTitle,
+    emptyText,
     doc: sheet.document,
     summary: sheet.summary,
     visible: sheet.visible,
@@ -365,24 +393,32 @@ Gyos.scope("Sumboard", () => {
       });
     },
     clearFilters: sheet.clearFilters,
-    reset() {
+    reset(event) {
       open(
         "confirm",
         "Bắt đầu bảng trống?",
         "Bảng hiện tại sẽ được thay thế. Bạn vẫn có thể hoàn tác, hoặc xuất JSON trước để giữ bản sao.",
         () => replacePlan(blankDocument(), "Đã tạo bảng trống."),
+        event?.currentTarget,
       );
     },
-    sample() {
+    sample(event) {
       open(
         "confirm",
         "Mở lại bảng mẫu?",
         "Thay bảng đang mở bằng workshop mẫu. Bạn có thể hoàn tác.",
         () => replacePlan(sampleDocument(), "Đã mở bảng mẫu."),
+        event?.currentTarget,
       );
     },
-    help() {
-      open("help", "Một bảng gọn, một kế hoạch rõ.", "", null);
+    help(event) {
+      open(
+        "help",
+        "Một bảng gọn, một kế hoạch rõ.",
+        "",
+        null,
+        event?.currentTarget,
+      );
     },
     close,
     confirm() {
@@ -393,7 +429,7 @@ Gyos.scope("Sumboard", () => {
     exportFile,
     importFile,
     restore,
-    overwrite() {
+    overwrite(event) {
       open(
         "confirm",
         "Ghi bản đang mở lên máy?",
@@ -404,6 +440,7 @@ Gyos.scope("Sumboard", () => {
             notice("Đã ghi bản đang mở lên máy.");
           }
         },
+        event?.currentTarget,
       );
     },
     onMount() {

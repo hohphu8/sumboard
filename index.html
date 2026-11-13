@@ -29,7 +29,7 @@
           ></a
         >
         <span class="top-caption">KẾ HOẠCH NHỎ. RÕ TỪNG KHOẢN.</span>
-        <button class="quiet help" @click="help()">
+        <button class="quiet help" @click="help($event)">
           <span aria-hidden="true">?</span> Cách dùng
         </button>
       </header>
@@ -76,8 +76,8 @@
           </div>
           <div class="button-row">
             <button @click="exportFile('json')">Xuất bản đang mở</button
-            ><button @click="restore()">Dùng bản lưu</button
-            ><button @click="overwrite()">Ghi bản đang mở</button>
+            ><button @click="restore($event)">Dùng bản lưu</button
+            ><button @click="overwrite($event)">Ghi bản đang mở</button>
           </div>
         </div>
         <p class="error-banner" role="alert" g-show="error()">{error()}</p>
@@ -117,10 +117,7 @@
             <strong class="stat-number" data-testid="remaining"
               >{money(remaining() &lt; 0 ? -remaining() : remaining())}</strong
             >
-            <span class="stat-note"
-              >{doc().budget === 0 ? 'Đặt ngân sách ở phần bên cạnh' : 'So với
-              ngân sách ' + money(doc().budget)}</span
-            >
+            <span class="stat-note">{budgetCaption()}</span>
           </article>
         </section>
 
@@ -313,15 +310,8 @@
               </table>
               <div class="empty-state" g-show="visible().length === 0">
                 <span class="empty-icon" aria-hidden="true">▤</span>
-                <h2>
-                  {doc().rows.length === 0 ? 'Chỗ cho kế hoạch mới.' : 'Chưa tìm
-                  thấy hạng mục.'}
-                </h2>
-                <p>
-                  {doc().rows.length === 0 ? 'Thêm khoản đầu tiên, những con số
-                  còn lại sẽ tự nối tiếp.' : 'Thử một từ khóa khác hoặc bỏ bộ
-                  lọc đang dùng.'}
-                </p>
+                <h2>{emptyTitle()}</h2>
+                <p>{emptyText()}</p>
                 <button @click="clearFilters()" g-show="doc().rows.length > 0">
                   Bỏ bộ lọc</button
                 ><button
@@ -378,11 +368,7 @@
                   :class="remaining() &lt; 0 ? 'over' : ''"
                 ></span>
               </div>
-              <p>
-                {doc().budget > 0 ? (remaining() &lt; 0 ? 'Cần cân đối thêm ' +
-                money(-remaining()) : 'Còn dư ' + money(remaining()) + ' cho ý
-                tưởng khác.') : 'Đặt một giới hạn để theo dõi chi phí.'}
-              </p>
+              <p>{budgetMessage()}</p>
             </section>
             <section class="allocation-card">
               <div class="aside-heading">
@@ -435,8 +421,8 @@
                 :disabled="importing()"
                 aria-label="Nhập file JSON"
             /></label>
-            <button class="quiet" @click="reset()">Bảng trống</button
-            ><button class="quiet" @click="sample()">Bảng mẫu</button>
+            <button class="quiet" @click="reset($event)">Bảng trống</button
+            ><button class="quiet" @click="sample($event)">Bảng mẫu</button>
           </div>
         </section>
         <p class="notice" role="status">{notice()}</p>
