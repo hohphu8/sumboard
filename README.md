@@ -1,6 +1,6 @@
 # Sumboard
 
-A Vietnamese cost-planning sheet built with **GyosJS 0.5.5**, plain HTML/CSS/JavaScript and Vite. Edit a workshop budget or start your own plan. No server, account, telemetry or remote runtime assets.
+A Vietnamese cost-planning sheet built with **GyosJS 0.5.6**, plain HTML/CSS/JavaScript and Vite. Edit a workshop budget or start your own plan. No server, account, telemetry or remote runtime assets.
 
 ## Run
 
@@ -48,3 +48,5 @@ Production browser suite: set `SUMBOARD_PRODUCTION=1`, then run `npm run test:e2
 See [plan](docs/PLAN.md), [validation](docs/VALIDATION.md) and [GyosJS findings](docs/DOGFOOD.md). Source is maintained in [hohphu8/sumboard](https://github.com/hohphu8/sumboard); hosting is managed by the owner.
 
 See [performance measurements](docs/PERFORMANCE.md) for reproducible production edit/sort/filter workloads, immutable history sharing and the limits of the 1,000/2,000-row stress fixtures. The product limit remains 500 rows.
+
+The [0.5.6 runtime rollout](docs/RUNTIME-0.5.6.md) includes regression results and a 500-row verification using the published npm package.

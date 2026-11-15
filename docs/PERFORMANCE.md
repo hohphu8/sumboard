@@ -1,5 +1,17 @@
 # Workload measurements — 2026-11-15
 
+> Runtime rollout: the app now pins published GyosJS 0.5.6, which includes the binding optimization. The original measurements below retain their 0.5.5 baseline and candidate provenance.
+
+## Published 0.5.6 verification
+
+The 500-row workload was rerun against the installed official npm package with no model/runtime override, five measured iterations after warmup, after the other browser suites finished. [Raw published-package samples](evidence/performance-2026-11-15/npm-0.5.6.json) include model/runtime SHA-256; the runtime hash was verified against the official tarball, which is byte-identical to the release candidate. The recorded app commit precedes committing the dependency rollout; source hashes identify the measured files.
+
+Every measured edit produced **1 input value write and 1 attribute mutation**. Median `flushMs`: edit **122.3**, sort **302.9**, filter **85.3**, restore **576.4**. This confirms the final package retains the write-count improvement. It is a separate local run, not a randomized timing comparison with the earlier 0.5.5 samples. Sort/filter still update index-based labels and restore still creates removed controls. The product limit remains 500 rows.
+
+The npm rollout also passed 11 domain/storage tests, production build and 43 production browser cases (5 existing intentional skips); npm audit reported zero findings. See [rollout validation](RUNTIME-0.5.6.md).
+
+## Original baseline and candidate experiment
+
 Sumboard still supports **500 rows**. The 1,000/2,000-row builds below override the limit only in a benchmark transform; they are not a product capacity increase. All app dependencies remain pinned to published GyosJS 0.5.5. The core optimization is an **unreleased candidate**, used only by an explicit benchmark alias.
 
 ## Reproduce
