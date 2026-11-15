@@ -14,10 +14,13 @@ const sizes = (process.env.BENCH_ROWS || '500,1000,2000').split(',').map(Number)
 if (sizes.some(n => ![500, 1000, 2000].includes(n))) throw Error('Rows: 500, 1000 or 2000');
 const samples = Number(process.env.BENCH_SAMPLES || 5);
 if (!Number.isInteger(samples) || samples < 1 || samples > 20) throw Error('Samples: 1..20');
+const pageMode = process.env.BENCH_PAGE_SIZE || '50';
+if (!['50', '100', 'all'].includes(pageMode)) throw Error('Page size: 50, 100 or all (benchmark only)');
 const root = process.cwd();
 const modelPath = resolve(root, 'src/model.js').replaceAll('\\', '/');
 const mainPath = resolve(root, 'src/main.js').replaceAll('\\', '/');
 const persistencePath = resolve(root, 'src/persistence.js').replaceAll('\\', '/');
+const sheetPath = resolve(root, 'src/sheet.js').replaceAll('\\', '/');
 const measurements = [];
 const modelSource = process.env.BENCH_MODEL_REF
   ? execFileSync('git', ['show', `${process.env.BENCH_MODEL_REF}:src/model.js`], { encoding: 'utf8' })
@@ -26,6 +29,7 @@ mkdirSync('.local', { recursive: true });
 const browser = await chromium.launch({ channel: process.platform === 'win32' ? 'chrome' : undefined });
 try {
   for (const rows of sizes) {
+    const renderedLimit = pageMode === 'all' ? rows : Number(pageMode);
     const outDir = `.local/perf-${label}-${rows}`;
     await build({ configFile: false, root, logLevel: 'warn',
       resolve: process.env.BENCH_GYOS ? { alias: { 'gyosjs/csp': resolve(process.env.BENCH_GYOS) } } : undefined,
@@ -34,6 +38,10 @@ try {
       transform(source, id) {
         id = id.replaceAll('\\', '/').split('?')[0];
         if (id === mainPath) return source.replace('Gyos.scope(', 'window.__benchGyos = Gyos;\nGyos.scope(');
+        if (id === sheetPath) {
+          if (!source.includes('const pageSize = Gyos.signal(50);')) throw Error('Pagination transform no longer matches');
+          return source.replace('const pageSize = Gyos.signal(50);', `const pageSize = Gyos.signal(${renderedLimit});`);
+        }
         if (id === modelPath) {
           source = modelSource;
           source = source.replace('export const MAX_ROWS = 500;', `export const MAX_ROWS = ${rows};`);
@@ -76,12 +84,20 @@ Persistence.prototype.save=function(...args){const t=performance.now();try{retur
       await cdp.send('Performance.enable');
       const url = `http://127.0.0.1:${server.httpServer.address().port}`;
       await page.goto(url);
-      await expect(page.locator('tbody tr')).toHaveCount(rows, { timeout: 60000 });
+      await expect(page.locator('tbody tr')).toHaveCount(Math.min(rows, renderedLimit), { timeout: 60000 });
       const metrics = async () => Object.fromEntries((await cdp.send('Performance.getMetrics')).metrics.map(m => [m.name, m.value]));
       for (let iteration = -1; iteration < samples; iteration++) {
+        // Keep the edited row on page one in every variant. This reset is outside
+        // the measured operations; all/50/100 use the same operation sequence.
+        await page.evaluate(async () => {
+          const state = window.__benchGyos.mountedScopes().get(document.getElementById('app'));
+          state.setQuery('sort', { target: { value: 'original' } });
+          await new Promise(resolve => setTimeout(resolve, 0));
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        });
         for (const operation of ['edit', 'sort', 'filter', 'restore']) {
           const beforeMetrics = await metrics();
-          const result = await page.evaluate(async ({ operation, rows, iteration }) => {
+          const result = await page.evaluate(async ({ operation, rows, iteration, renderedLimit }) => {
             const state = window.__benchGyos.mountedScopes().get(document.getElementById('app'));
             const tbody = document.querySelector('tbody');
             const beforeRows = new Map([...tbody.querySelectorAll('tr')].map(row => [row.dataset.row, row]));
@@ -115,7 +131,7 @@ Persistence.prototype.save=function(...args){const t=performance.now();try{retur
             const after = [...tbody.querySelectorAll('tr')];
             const survivors = after.filter(row => beforeRows.has(row.dataset.row));
             const retained = survivors.filter(row => beforeRows.get(row.dataset.row) === row).length;
-            const expectedCount = operation === 'filter' ? rows / 10 : rows;
+            const expectedCount = Math.min(operation === 'filter' ? rows / 10 : rows, renderedLimit);
             if (after.length !== expectedCount || retained !== survivors.length) throw Error('Row count/identity regression');
             const expectedTotal = rows * (rows + 1) / 2 - 1 + 10000 + iteration + 1;
             if (state.summary().total !== expectedTotal) throw Error('Incorrect total');
@@ -130,7 +146,7 @@ Persistence.prototype.save=function(...args){const t=performance.now();try{retur
               model: window.__benchTimes.reduce((acc, item) => {
                 acc[item.name] ||= { calls: 0, ms: 0 }; acc[item.name].calls++; acc[item.name].ms += item.ms; return acc;
               }, {}) };
-          }, { operation, rows, iteration });
+          }, { operation, rows, iteration, renderedLimit });
           const afterMetrics = await metrics();
           result.browser = Object.fromEntries(['ScriptDuration', 'LayoutDuration', 'RecalcStyleDuration', 'TaskDuration'].map(name => [name + 'Ms', (afterMetrics[name] - beforeMetrics[name]) * 1000]));
           if (iteration >= 0) measurements.push({ rows, iteration, operation, ...result });
@@ -144,7 +160,11 @@ Persistence.prototype.save=function(...args){const t=performance.now();try{retur
   const report = { date: new Date().toISOString(), label, node: process.version, browser: browser.version(),
     os: `${os.platform()} ${os.release()}`, cpu: os.cpus()[0]?.model,
     commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
+    pageMode, sequence: 'reset original sort outside measurement; edit row 0, descending sort, filter Group 0, restore',
     sourceOverride: Boolean(process.env.BENCH_MODEL || process.env.BENCH_MODEL_REF), coreOverride: Boolean(process.env.BENCH_GYOS), gyos: JSON.parse(readFileSync('node_modules/gyosjs/package.json')).version,
+    sheetSha256: createHash('sha256').update(readFileSync(sheetPath)).digest('hex'),
+    templateSha256: createHash('sha256').update(readFileSync('index.html')).digest('hex'),
+    mainSha256: createHash('sha256').update(readFileSync(mainPath)).digest('hex'),
     modelSha256: createHash('sha256').update(modelSource).digest('hex'),
     runtimeSha256: createHash('sha256').update(readFileSync(process.env.BENCH_GYOS || 'node_modules/gyosjs/dist/gyos.csp.esm.js')).digest('hex'),
     note: 'Instrumented production build. Warmup excluded; no throttling. >500 rows stress-only. Times overlap: do not sum. twoRafMs is not paint completion. Input setter/MutationObserver add overhead. No timing pass thresholds.', measurements };

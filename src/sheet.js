@@ -20,6 +20,35 @@ export function createSheet(initial) {
     }),
   );
   const filteredSummary = Gyos.computed(() => summarize(visible()));
+  const pageSize = Gyos.signal(50);
+  const requestedPage = Gyos.signal(1);
+  const pageCount = Gyos.computed(() => Math.max(1, Math.ceil(visible().length / pageSize())));
+  const page = Gyos.computed(() => Math.min(requestedPage(), pageCount()));
+  const offset = Gyos.computed(() => (page() - 1) * pageSize());
+  const pageRows = Gyos.computed(() => visible().slice(offset(), offset() + pageSize()));
+  function goToPage(next) {
+    if (!Number.isInteger(next)) return;
+    requestedPage(Math.max(1, Math.min(next, pageCount())));
+  }
+  function revealRow(id) {
+    const index = visible().findIndex(row => row.id === id);
+    if (index < 0) return false;
+    goToPage(Math.floor(index / pageSize()) + 1);
+    return true;
+  }
+  function setPageSize(size) {
+    if (![50, 100].includes(size)) return;
+    const first = offset();
+    Gyos.batch(() => {
+      pageSize(size);
+      goToPage(Math.floor(first / size) + 1);
+    });
+  }
+  function setQuery(field, value) {
+    const target = { search, category, status, sort }[field];
+    if (!target) return;
+    Gyos.batch(() => { target(value); requestedPage(1); });
+  }
   const categories = Gyos.computed(() =>
     [...new Set(document().rows.map((row) => row.category))].sort((a, b) =>
       a.localeCompare(b, "vi"),
@@ -30,6 +59,8 @@ export function createSheet(initial) {
   function publish() {
     Gyos.batch(() => {
       document(history.current);
+      // Persist the clamp so undo cannot unexpectedly jump back to an old page.
+      requestedPage(page());
       undoCount(history.past.length);
       redoCount(history.future.length);
     });
@@ -51,6 +82,7 @@ export function createSheet(initial) {
       search("");
       category("");
       status("");
+      requestedPage(1);
     });
   }
   return {
@@ -63,6 +95,15 @@ export function createSheet(initial) {
     sort,
     summary,
     visible,
+    pageRows,
+    page,
+    pageSize,
+    pageCount,
+    offset,
+    goToPage,
+    revealRow,
+    setPageSize,
+    setQuery,
     filteredSummary,
     categories,
     get revision() {

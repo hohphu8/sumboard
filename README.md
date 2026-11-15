@@ -18,7 +18,8 @@ Open http://127.0.0.1:4220. Production: `npm run build`, then `npm run preview` 
 - Edit any item, group, quantity or unit price. Enter commits and moves down; Shift+Enter moves up; Tab moves between controls; Escape discards the current draft.
 - Amounts are integer VND; quantities support three decimal places. No thousands separators in editable numeric fields. Each row rounds to the nearest VND, with halves rounded up.
 - “Tính tổng” includes a row in the plan. “Đã trả” marks the entire row paid. Partial payments are not supported.
-- Search (accent-insensitive), category/status filters and sorting change only the view. Cards/category totals refer to the whole plan; “Phần đang hiện” is the included subtotal of visible rows.
+- Search (accent-insensitive), category/status filters and sorting change only the view. Cards/category totals refer to the whole plan; “Tổng dòng khớp” is the included subtotal of all matching rows across pages.
+- Show 50 rows per page (default) or 100. Enter/Shift+Enter crosses page boundaries; filters/sort apply globally. Page navigation stays outside undo history and resets on reload.
 - Add, duplicate and remove rows. Undo/redo keeps up to 80 document changes for the current session. Reload resets history. Outside inputs: Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z (or Ctrl+Y); inside inputs native text undo is preserved.
 - Ctrl/Cmd+S exports JSON. JSON is the full backup/restore format; CSV exports all rows for other spreadsheet software and escapes formula-like text. CSV import is not supported.
 - Invalid imports preserve the open plan. Valid imports, resets and storage recovery require confirmation. An import that finishes after a newer edit is ignored.
@@ -50,3 +51,5 @@ See [plan](docs/PLAN.md), [validation](docs/VALIDATION.md) and [GyosJS findings]
 See [performance measurements](docs/PERFORMANCE.md) for reproducible production edit/sort/filter workloads, immutable history sharing and the limits of the 1,000/2,000-row stress fixtures. The product limit remains 500 rows.
 
 The [0.5.6 runtime rollout](docs/RUNTIME-0.5.6.md) includes regression results and a 500-row verification using the published npm package.
+
+See [editable-table pagination](docs/PAGINATION.md) for behavior, keyboard/focus rules and the controlled 500-row comparison of rendering all rows versus 50/100 per page.

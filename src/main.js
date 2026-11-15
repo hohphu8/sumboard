@@ -119,12 +119,13 @@ Gyos.scope("Sumboard", () => {
     }
   }
   function focusCell(id, field = "name") {
+    if (!sheet.revealRow(id)) id = sheet.pageRows()[0]?.id;
     queueMicrotask(() => {
       if (!alive) return;
       const target = app().querySelector(
         `[data-row="${id}"] [data-field="${field}"]`,
       );
-      target?.focus();
+      (target || document.getElementById("add-row"))?.focus();
       target?.select?.();
     });
   }
@@ -292,6 +293,29 @@ Gyos.scope("Sumboard", () => {
     doc: sheet.document,
     summary: sheet.summary,
     visible: sheet.visible,
+    pageRows: sheet.pageRows,
+    page: sheet.page,
+    pageSize: sheet.pageSize,
+    pageCount: sheet.pageCount,
+    offset: sheet.offset,
+    setQuery(field, event) {
+      sheet.setQuery(field, event.target.value);
+      app().querySelector('.table-scroll').scrollTop = 0;
+    },
+    turnPage(next, event) {
+      const trigger = event.currentTarget;
+      document.activeElement?.blur();
+      sheet.goToPage(next);
+      queueMicrotask(() => {
+        if (!alive) return;
+        app().querySelector('.table-scroll').scrollTop = 0;
+        (trigger.disabled ? document.getElementById('page-status') : trigger).focus();
+      });
+    },
+    resizePage(event) {
+      sheet.setPageSize(Number(event.target.value));
+      app().querySelector('.table-scroll').scrollTop = 0;
+    },
     filtered: sheet.filteredSummary,
     categories: sheet.categories,
     search: sheet.search,

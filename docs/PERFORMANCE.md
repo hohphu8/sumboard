@@ -2,6 +2,8 @@
 
 > Runtime rollout: the app now pins published GyosJS 0.5.6, which includes the binding optimization. The original measurements below retain their 0.5.5 baseline and candidate provenance.
 
+> Follow-up: [editable-table pagination](PAGINATION.md) now bounds mounted rows to 50/100. It includes fresh all/50/100 measurements with a common operation sequence; the sections below preserve historical evidence.
+
 ## Published 0.5.6 verification
 
 The 500-row workload was rerun against the installed official npm package with no model/runtime override, five measured iterations after warmup, after the other browser suites finished. [Raw published-package samples](evidence/performance-2026-11-15/npm-0.5.6.json) include model/runtime SHA-256; the runtime hash was verified against the official tarball, which is byte-identical to the release candidate. The recorded app commit precedes committing the dependency rollout; source hashes identify the measured files.

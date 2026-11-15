@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { sampleDocument } from "../../src/model.js";
 import { STORAGE_KEY } from "../../src/persistence.js";
 
-test("500 rows retain keyed DOM across sorting and compute edits correctly", async ({
+test("500 rows paginate after global sorting and compute edits correctly", async ({
   page,
 }, testInfo) => {
   test.setTimeout(60000);
@@ -21,7 +21,8 @@ test("500 rows retain keyed DOM across sorting and compute edits correctly", asy
   );
   const start = performance.now();
   await page.goto("/");
-  await expect(page.locator("tbody tr")).toHaveCount(500);
+  await expect(page.locator("tbody tr")).toHaveCount(50);
+  await expect(page.locator('#page-status')).toHaveText('Trang 1 / 10');
   await expect(page.getByTestId("total")).toHaveText("125.250 ₫");
   const mountMs = performance.now() - start;
   await expect(
@@ -42,11 +43,7 @@ test("500 rows retain keyed DOM across sorting and compute edits correctly", asy
   const sortMs = performance.now() - sortedAt;
   expect(
     await page.evaluate(() =>
-      window.__rows.every(
-        (row, i) =>
-          row.isConnected &&
-          row.querySelector("[data-field=name]") === window.__controls[i],
-      ),
+      window.__rows.every(row => !row.isConnected),
     ),
   ).toBe(true);
   const input = page.locator('[data-row="r_load-499"] [data-field=price]');
@@ -59,7 +56,10 @@ test("500 rows retain keyed DOM across sorting and compute edits correctly", asy
   await expect(page.locator("tbody tr")).toHaveCount(1);
   await expect(page.getByTestId("filtered-total")).toHaveText("1.000 ₫");
   await page.getByLabel("Tìm hạng mục").fill("");
-  await expect(page.locator("tbody tr")).toHaveCount(500);
+  await expect(page.locator("tbody tr")).toHaveCount(50);
+  await page.getByLabel('Số dòng mỗi trang', { exact: true }).selectOption('100');
+  await expect(page.locator('tbody tr')).toHaveCount(100);
+  await expect(page.locator('#page-status')).toHaveText('Trang 1 / 5');
   await mkdir(".local", { recursive: true });
   await writeFile(
     `.local/workload-${process.env.SUMBOARD_PRODUCTION === "1" ? "prod" : "dev"}-${testInfo.project.name}.json`,

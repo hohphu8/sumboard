@@ -547,6 +547,19 @@ td input:focus {
 .excluded input:not([type="checkbox"]) {
   color: #8f9689;
 }
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding: 12px;
+  font-size: 12px;
+}
+.pagination label { display: flex; align-items: center; gap: 8px; }
+.pagination select { padding: 8px; border: 1px solid var(--line); border-radius: 6px; }
+#page-status:focus { outline: 3px solid #8aa777; outline-offset: 3px; }
 .table-footer {
   display: flex;
   justify-content: space-between;

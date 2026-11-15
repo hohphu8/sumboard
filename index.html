@@ -166,22 +166,22 @@
                   id="search"
                   aria-label="Tìm hạng mục"
                   placeholder="Tìm hạng mục..."
-                  g-model="search"
+                  :value="search()" @input="setQuery('search', $event)"
                   type="search"
               /></label>
-              <select aria-label="Lọc nhóm" g-model="category">
+              <select aria-label="Lọc nhóm" :value="category()" @change="setQuery('category', $event)">
                 <option value="">Tất cả nhóm</option>
                 <option *for="name in categories()" g-key="name" :value="name">
                   {name}
                 </option>
               </select>
-              <select aria-label="Lọc trạng thái" g-model="status">
+              <select aria-label="Lọc trạng thái" :value="status()" @change="setQuery('status', $event)">
                 <option value="">Mọi trạng thái</option>
                 <option value="unpaid">Chưa thanh toán</option>
                 <option value="paid">Đã thanh toán</option>
                 <option value="excluded">Không tính tổng</option>
               </select>
-              <select aria-label="Sắp xếp" g-model="sort">
+              <select aria-label="Sắp xếp" :value="sort()" @change="setQuery('sort', $event)">
                 <option value="original">Thứ tự gốc</option>
                 <option value="name">Tên A → Z</option>
                 <option value="amount-desc">Tiền giảm dần</option>
@@ -220,15 +220,15 @@
                 </thead>
                 <tbody>
                   <tr
-                    *for="row, index in visible()"
+                    *for="row, index in pageRows()"
                     g-key="row.id"
                     :data-row="row.id"
                     :class="row.included ? '' : 'excluded'"
                   >
-                    <td class="row-number">{index + 1}</td>
+                    <td class="row-number">{offset() + index + 1}</td>
                     <td class="name-cell">
                       <input
-                        :aria-label="'Hạng mục dòng ' + (index + 1)"
+                        :aria-label="'Hạng mục dòng ' + (offset() + index + 1)"
                         data-field="name"
                         :value="row.name"
                         maxlength="160"
@@ -239,7 +239,7 @@
                     </td>
                     <td class="category-cell">
                       <input
-                        :aria-label="'Nhóm dòng ' + (index + 1)"
+                        :aria-label="'Nhóm dòng ' + (offset() + index + 1)"
                         data-field="category"
                         :value="row.category"
                         maxlength="48"
@@ -251,7 +251,7 @@
                     </td>
                     <td class="quantity-cell">
                       <input
-                        :aria-label="'Số lượng dòng ' + (index + 1)"
+                        :aria-label="'Số lượng dòng ' + (offset() + index + 1)"
                         data-field="quantity"
                         :value="row.quantity"
                         inputmode="decimal"
@@ -262,7 +262,7 @@
                     </td>
                     <td class="price-cell">
                       <input
-                        :aria-label="'Đơn giá dòng ' + (index + 1)"
+                        :aria-label="'Đơn giá dòng ' + (offset() + index + 1)"
                         data-field="price"
                         :value="row.price"
                         inputmode="numeric"
@@ -323,10 +323,22 @@
                 </button>
               </div>
             </div>
+            <nav class="pagination" aria-label="Phân trang bảng">
+              <label>Số dòng mỗi trang
+                <select aria-label="Số dòng mỗi trang" :value="pageSize()" @change="resizePage($event)">
+                  <option value="50">50</option><option value="100">100</option>
+                </select>
+              </label>
+              <span id="page-status" tabindex="-1" role="status" aria-live="polite">Trang {page()} / {pageCount()}</span>
+              <div class="button-row">
+                <button @click="turnPage(page() - 1, $event)" :disabled="page() <= 1" aria-label="Trang trước">← Trước</button>
+                <button @click="turnPage(page() + 1, $event)" :disabled="page() >= pageCount()" aria-label="Trang sau">Sau →</button>
+              </div>
+            </nav>
             <div class="table-footer">
-              <span>Hiện {visible().length} / {doc().rows.length} dòng</span
+              <span>Hiện {visible().length ? offset() + 1 : 0}–{offset() + pageRows().length} / {visible().length} dòng khớp · {doc().rows.length} dòng toàn bảng</span
               ><span
-                >Phần đang hiện
+                >Tổng dòng khớp
                 <strong data-testid="filtered-total"
                   >{money(filtered().total)}</strong
                 ></span
@@ -484,7 +496,7 @@
           </p>
           <p>
             JSON giữ đủ dữ liệu để nhập lại; CSV dùng cho ứng dụng bảng tính
-            khác. Một bảng tối đa 500 dòng, file nhập tối đa 2 MB. Chưa có công
+            khác. Bảng hiển thị 50 hoặc 100 dòng mỗi trang; lọc, sắp xếp và tổng tiền áp dụng toàn bộ dữ liệu. Enter/Shift+Enter đi qua trang khi cần. Đổi trang không tạo bước hoàn tác. Một bảng tối đa 500 dòng, file nhập tối đa 2 MB. Chưa có công
             thức tùy ý, nhiều sheet hay đồng bộ đám mây.
           </p>
           <p>
