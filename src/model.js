@@ -263,7 +263,15 @@ export class History {
     this.revision = 0;
   }
   commit(document) {
-    const next = validateDocument(document);
+    const validated = validateDocument(document);
+    // Validate every input first, then share equal immutable rows across history
+    // snapshots. One cell edit should not retain a fresh copy of every row.
+    const previous = new Map(this.current.rows.map((row) => [row.id, row]));
+    const rows = validated.rows.map((row) => {
+      const old = previous.get(row.id);
+      return old && ROW_KEYS.every((key) => old[key] === row[key]) ? old : row;
+    });
+    const next = Object.freeze({ ...validated, rows: Object.freeze(rows) });
     if (JSON.stringify(next) === JSON.stringify(this.current)) return false;
     this.past.push(this.current);
     if (this.past.length > this.limit) this.past.shift();

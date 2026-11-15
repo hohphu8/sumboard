@@ -12,6 +12,7 @@
     "preview": "vite preview --host 127.0.0.1 --port 4221 --strictPort",
     "test": "node --test tests/*.test.js",
     "test:e2e": "playwright test",
+    "bench:workload": "node scripts/benchmark-workload.mjs",
     "check": "npm test && npm run build && npm run test:e2e"
   },
   "dependencies": {

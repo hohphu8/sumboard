@@ -45,4 +45,6 @@ Production browser suite: set `SUMBOARD_PRODUCTION=1`, then run `npm run test:e2
 - `src/main.js`: scope factory, committed editing, focus, dialogs, downloads, file-read generation and lifecycle cleanup.
 - `index.html`: reactive template, native table and controls; `src/style.css`: responsive styling.
 
-See [plan](docs/PLAN.md), [validation](docs/VALIDATION.md) and [GyosJS findings](docs/DOGFOOD.md). This repository has no remote configured; its owner chooses the remote and hosting.
+See [plan](docs/PLAN.md), [validation](docs/VALIDATION.md) and [GyosJS findings](docs/DOGFOOD.md). Source is maintained in [hohphu8/sumboard](https://github.com/hohphu8/sumboard); hosting is managed by the owner.
+
+See [performance measurements](docs/PERFORMANCE.md) for reproducible production edit/sort/filter workloads, immutable history sharing and the limits of the 1,000/2,000-row stress fixtures. The product limit remains 500 rows.

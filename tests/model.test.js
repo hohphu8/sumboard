@@ -109,6 +109,35 @@ test("history groups commits, caps memory, handles branching and immutable snaps
   assert.equal(history.undo(), false);
 });
 
+test("commits share only equal validated rows and preserve immutable history", () => {
+  const history = new History(sampleDocument());
+  const original = history.current;
+  const imported = JSON.parse(JSON.stringify(original));
+  imported.rows[0].price++;
+  history.commit(imported);
+  const edited = history.current;
+  assert.notEqual(edited.rows[0], original.rows[0]);
+  assert.ok(edited.rows.slice(1).every((row, i) => row === original.rows[i + 1]));
+  imported.rows[1].name = "Mutated external input";
+  assert.equal(edited.rows[1].name, original.rows[1].name);
+  assert.ok(Object.isFrozen(edited.rows) && Object.isFrozen(edited.rows[0]));
+  history.commit({ ...edited, rows: [...edited.rows].reverse() });
+  assert.equal(history.current.rows[0], edited.rows.at(-1));
+  history.undo();
+  assert.equal(history.current, edited);
+  history.undo();
+  assert.equal(history.current, original);
+  history.redo();
+  assert.equal(history.current, edited);
+  const revision = history.revision;
+  assert.equal(history.commit(JSON.parse(JSON.stringify(edited))), false);
+  assert.equal(history.revision, revision);
+  assert.throws(() => history.commit({ ...edited, rows: edited.rows.map((row, i) =>
+    i ? row : { ...row, extra: true }) }));
+  assert.throws(() => history.commit({ ...edited, rows: [...edited.rows, edited.rows[0]] }));
+  assert.equal(history.current, edited);
+});
+
 test("filtering and sorting project data without mutating original order or totals", () => {
   const doc = sampleDocument(),
     ids = doc.rows.map((row) => row.id);

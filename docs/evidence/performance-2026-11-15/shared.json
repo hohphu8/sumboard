@@ -1,0 +1,2234 @@
+{
+  "date": "2026-11-15T09:13:25.309Z",
+  "label": "shared",
+  "node": "v22.18.0",
+  "browser": "157.0.8103.78",
+  "os": "win32 10.0.26300",
+  "cpu": "Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz",
+  "commit": "25c7cb8853ff2c9498b07a5b72ace9a309e99b18",
+  "sourceOverride": false,
+  "gyos": "0.5.5",
+  "note": "Instrumented production build. Warmup excluded; no throttling. >500 rows stress-only. Times overlap: do not sum. twoRafMs is not paint completion. Input setter/MutationObserver add overhead. No timing pass thresholds.",
+  "measurements": [
+    {
+      "rows": 500,
+      "iteration": 0,
+      "operation": "edit",
+      "handlerMs": 50.19999998807907,
+      "flushMs": 159.30000001192093,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 175.80000001192093,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2001,
+      "sharedRows": 499,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 2.199999988079071
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.600000023841858
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.30000007152557373
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.6000000238418579
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 101.99200000000008,
+        "LayoutDurationMs": 5.266999999999966,
+        "RecalcStyleDurationMs": 0.3599999999999992,
+        "TaskDurationMs": 208.07399999999987
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 0,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 380.39999997615814,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 398.10000002384186,
+      "counts": {
+        "rowAdds": 499,
+        "rowRemoves": 499,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 140.4099999999999,
+        "LayoutDurationMs": 99.13800000000006,
+        "RecalcStyleDurationMs": 86.23599999999998,
+        "TaskDurationMs": 403.52599999999984
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 0,
+      "operation": "filter",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 137.10000002384186,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 153.60000002384186,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 450,
+        "attributes": 650,
+        "text": 100
+      },
+      "retained": 50,
+      "rowCount": 50,
+      "valueWrites": 200,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 117.26199999999997,
+        "LayoutDurationMs": 2.8009999999999424,
+        "RecalcStyleDurationMs": 0.5860000000000309,
+        "TaskDurationMs": 140.64300000000028
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 0,
+      "operation": "restore",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 1014.5,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1041.3999999761581,
+      "counts": {
+        "rowAdds": 450,
+        "rowRemoves": 0,
+        "attributes": 14150,
+        "text": 1000
+      },
+      "retained": 50,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 751.228,
+        "LayoutDurationMs": 125.98300000000006,
+        "RecalcStyleDurationMs": 73.204,
+        "TaskDurationMs": 1041.4499999999998
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 1,
+      "operation": "edit",
+      "handlerMs": 63.69999998807907,
+      "flushMs": 151.19999998807907,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 156.80000001192093,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2001,
+      "sharedRows": 499,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 1.199999988079071
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.5
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.20000004768371582
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 124.61900000000003,
+        "LayoutDurationMs": 5.719999999999947,
+        "RecalcStyleDurationMs": 0.25399999999997647,
+        "TaskDurationMs": 156.84699999999995
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 1,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 524.5999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 540.0999999642372,
+      "counts": {
+        "rowAdds": 499,
+        "rowRemoves": 499,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 130.3160000000001,
+        "LayoutDurationMs": 199.65600000000006,
+        "RecalcStyleDurationMs": 126.10300000000002,
+        "TaskDurationMs": 551.6350000000001
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 1,
+      "operation": "filter",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 159,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 175.39999997615814,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 450,
+        "attributes": 650,
+        "text": 100
+      },
+      "retained": 50,
+      "rowCount": 50,
+      "valueWrites": 200,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 139.14099999999996,
+        "LayoutDurationMs": 1.4519999999998978,
+        "RecalcStyleDurationMs": 0.5509999999999682,
+        "TaskDurationMs": 192.56299999999982
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 1,
+      "operation": "restore",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 623.3999999761581,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 647.8000000119209,
+      "counts": {
+        "rowAdds": 450,
+        "rowRemoves": 0,
+        "attributes": 14150,
+        "text": 1000
+      },
+      "retained": 50,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 403.8349999999999,
+        "LayoutDurationMs": 74.08700000000002,
+        "RecalcStyleDurationMs": 64.434,
+        "TaskDurationMs": 659.1890000000004
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 2,
+      "operation": "edit",
+      "handlerMs": 49.30000001192093,
+      "flushMs": 225.30000001192093,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 226,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2001,
+      "sharedRows": 499,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 2.5
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.4000000357627869
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.20000004768371582
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 157.60400000000007,
+        "LayoutDurationMs": 6.385000000000085,
+        "RecalcStyleDurationMs": 0.39400000000000546,
+        "TaskDurationMs": 241.23499999999964
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 2,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 418.19999998807907,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 429.89999997615814,
+      "counts": {
+        "rowAdds": 499,
+        "rowRemoves": 499,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 159.77899999999988,
+        "LayoutDurationMs": 107.31099999999994,
+        "RecalcStyleDurationMs": 88.09699999999998,
+        "TaskDurationMs": 437.67099999999994
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 2,
+      "operation": "filter",
+      "handlerMs": 0,
+      "flushMs": 160.89999997615814,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 179.60000002384186,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 450,
+        "attributes": 650,
+        "text": 100
+      },
+      "retained": 50,
+      "rowCount": 50,
+      "valueWrites": 200,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 144.2580000000002,
+        "LayoutDurationMs": 1.5920000000000378,
+        "RecalcStyleDurationMs": 0.38199999999999346,
+        "TaskDurationMs": 181.9929999999994
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 2,
+      "operation": "restore",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 734.5999999642372,
+      "forcedLayoutMs": 0.10000002384185791,
+      "twoRafMs": 759.5,
+      "counts": {
+        "rowAdds": 450,
+        "rowRemoves": 0,
+        "attributes": 14150,
+        "text": 1000
+      },
+      "retained": 50,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 493.53900000000016,
+        "LayoutDurationMs": 100.36800000000001,
+        "RecalcStyleDurationMs": 77.42900000000009,
+        "TaskDurationMs": 758.7970000000004
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 3,
+      "operation": "edit",
+      "handlerMs": 41,
+      "flushMs": 135.80000001192093,
+      "forcedLayoutMs": 0.09999996423721313,
+      "twoRafMs": 152.69999998807907,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2001,
+      "sharedRows": 499,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 1.600000023841858
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.5
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.20000004768371582
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 115.0569999999993,
+        "LayoutDurationMs": 5.438999999999972,
+        "RecalcStyleDurationMs": 0.26999999999999247,
+        "TaskDurationMs": 141.3460000000004
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 3,
+      "operation": "sort",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 589.7999999523163,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 620.6999999880791,
+      "counts": {
+        "rowAdds": 499,
+        "rowRemoves": 499,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 154.0240000000006,
+        "LayoutDurationMs": 178.27700000000002,
+        "RecalcStyleDurationMs": 113.09999999999998,
+        "TaskDurationMs": 634.1100000000006
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 3,
+      "operation": "filter",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 226.0999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 243.89999997615814,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 450,
+        "attributes": 650,
+        "text": 100
+      },
+      "retained": 50,
+      "rowCount": 50,
+      "valueWrites": 200,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 186.70299999999963,
+        "LayoutDurationMs": 3.0159999999999076,
+        "RecalcStyleDurationMs": 0.9080000000000199,
+        "TaskDurationMs": 257.5219999999998
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 3,
+      "operation": "restore",
+      "handlerMs": 0,
+      "flushMs": 809.1999999880791,
+      "forcedLayoutMs": 0.10000002384185791,
+      "twoRafMs": 826.6999999880791,
+      "counts": {
+        "rowAdds": 450,
+        "rowRemoves": 0,
+        "attributes": 14150,
+        "text": 1000
+      },
+      "retained": 50,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 565.8780000000005,
+        "LayoutDurationMs": 77.34100000000011,
+        "RecalcStyleDurationMs": 76.492,
+        "TaskDurationMs": 837.9829999999995
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 4,
+      "operation": "edit",
+      "handlerMs": 56,
+      "flushMs": 200.5,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 231.20000004768372,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2001,
+      "sharedRows": 499,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 2.400000035762787
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.600000023841858
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.3999999761581421
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.7000000476837158
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 135.69799999999964,
+        "LayoutDurationMs": 4.766000000000048,
+        "RecalcStyleDurationMs": 0.2409999999999357,
+        "TaskDurationMs": 237.22199999999916
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 4,
+      "operation": "sort",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 448,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 461.4000000357628,
+      "counts": {
+        "rowAdds": 499,
+        "rowRemoves": 499,
+        "attributes": 6500,
+        "text": 1000
+      },
+      "retained": 500,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 117.31499999999961,
+        "LayoutDurationMs": 163.54800000000003,
+        "RecalcStyleDurationMs": 93.9310000000001,
+        "TaskDurationMs": 466.424
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 4,
+      "operation": "filter",
+      "handlerMs": 0,
+      "flushMs": 229.30000001192093,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 235.39999997615814,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 450,
+        "attributes": 650,
+        "text": 100
+      },
+      "retained": 50,
+      "rowCount": 50,
+      "valueWrites": 200,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 204.6170000000007,
+        "LayoutDurationMs": 3.4849999999999604,
+        "RecalcStyleDurationMs": 0.6530000000000147,
+        "TaskDurationMs": 235.50599999999912
+      }
+    },
+    {
+      "rows": 500,
+      "iteration": 4,
+      "operation": "restore",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 1087.5999999642372,
+      "forcedLayoutMs": 0.10000002384185791,
+      "twoRafMs": 1120.0999999642372,
+      "counts": {
+        "rowAdds": 450,
+        "rowRemoves": 0,
+        "attributes": 14150,
+        "text": 1000
+      },
+      "retained": 50,
+      "rowCount": 500,
+      "valueWrites": 2000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 763.5669999999992,
+        "LayoutDurationMs": 134.99899999999988,
+        "RecalcStyleDurationMs": 115.19400000000002,
+        "TaskDurationMs": 1120.0349999999996
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 0,
+      "operation": "edit",
+      "handlerMs": 70.59999996423721,
+      "flushMs": 202.5999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 217.89999997615814,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4001,
+      "sharedRows": 999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 3.5
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.7999999523162842
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.5
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.8999999761581421
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 154.70400000000018,
+        "LayoutDurationMs": 7.377999999999996,
+        "RecalcStyleDurationMs": 0.30600000000002847,
+        "TaskDurationMs": 234.91000000000017
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 0,
+      "operation": "sort",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 570.5999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 588.1999999880791,
+      "counts": {
+        "rowAdds": 999,
+        "rowRemoves": 999,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 178.20800000000014,
+        "LayoutDurationMs": 194.67100000000005,
+        "RecalcStyleDurationMs": 123.70000000000003,
+        "TaskDurationMs": 605.4779999999997
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 0,
+      "operation": "filter",
+      "handlerMs": 0,
+      "flushMs": 217.5999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 228.89999997615814,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 900,
+        "attributes": 1300,
+        "text": 200
+      },
+      "retained": 100,
+      "rowCount": 100,
+      "valueWrites": 400,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.20000004768371582
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.09999996423721313
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 194.06599999999986,
+        "LayoutDurationMs": 3.714999999999913,
+        "RecalcStyleDurationMs": 1.0700000000000154,
+        "TaskDurationMs": 236.32800000000032
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 0,
+      "operation": "restore",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 1692.7000000476837,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1750.9000000357628,
+      "counts": {
+        "rowAdds": 900,
+        "rowRemoves": 0,
+        "attributes": 28300,
+        "text": 2000
+      },
+      "retained": 100,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 1148.4359999999997,
+        "LayoutDurationMs": 247.85500000000016,
+        "RecalcStyleDurationMs": 171.98999999999998,
+        "TaskDurationMs": 1749.8989999999992
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 1,
+      "operation": "edit",
+      "handlerMs": 143.10000002384186,
+      "flushMs": 328.9000000357628,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 336.69999998807907,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4001,
+      "sharedRows": 999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 4
+        },
+        "save": {
+          "calls": 1,
+          "ms": 3
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.699999988079071
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 290.63399999999984,
+        "LayoutDurationMs": 14.37899999999992,
+        "RecalcStyleDurationMs": 0.6269999999999332,
+        "TaskDurationMs": 335.70900000000137
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 1,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 947.9000000357628,
+      "forcedLayoutMs": 0.09999996423721313,
+      "twoRafMs": 988.6000000238419,
+      "counts": {
+        "rowAdds": 999,
+        "rowRemoves": 999,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.40000003576278687
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.5
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 319.11800000000045,
+        "LayoutDurationMs": 323.50199999999995,
+        "RecalcStyleDurationMs": 148.72000000000008,
+        "TaskDurationMs": 1006.2599999999993
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 1,
+      "operation": "filter",
+      "handlerMs": 0.19999998807907104,
+      "flushMs": 350.69999998807907,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 358.5,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 900,
+        "attributes": 1300,
+        "text": 200
+      },
+      "retained": 100,
+      "rowCount": 100,
+      "valueWrites": 400,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.6000000238418579
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 263.9389999999997,
+        "LayoutDurationMs": 5.594000000000099,
+        "RecalcStyleDurationMs": 1.3360000000000039,
+        "TaskDurationMs": 372.5620000000003
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 1,
+      "operation": "restore",
+      "handlerMs": 0,
+      "flushMs": 1244.8999999761581,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1283.3999999761581,
+      "counts": {
+        "rowAdds": 900,
+        "rowRemoves": 0,
+        "attributes": 28300,
+        "text": 2000
+      },
+      "retained": 100,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.8999999761581421
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.20000004768371582
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 893.3249999999999,
+        "LayoutDurationMs": 142.73899999999995,
+        "RecalcStyleDurationMs": 107.043,
+        "TaskDurationMs": 1297.0009999999997
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 2,
+      "operation": "edit",
+      "handlerMs": 115.30000001192093,
+      "flushMs": 310.7000000476837,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 316.2000000476837,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4001,
+      "sharedRows": 999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 3.299999952316284
+        },
+        "save": {
+          "calls": 1,
+          "ms": 2.199999988079071
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.6000000238418579
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.6000000238418579
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 237.29699999999985,
+        "LayoutDurationMs": 13.476000000000043,
+        "RecalcStyleDurationMs": 0.5979999999998764,
+        "TaskDurationMs": 333.2060000000006
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 2,
+      "operation": "sort",
+      "handlerMs": 0.19999998807907104,
+      "flushMs": 549.3000000119209,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 563,
+      "counts": {
+        "rowAdds": 999,
+        "rowRemoves": 999,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 240.80800000000036,
+        "LayoutDurationMs": 133.14499999999984,
+        "RecalcStyleDurationMs": 111.47300000000016,
+        "TaskDurationMs": 575.6889999999988
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 2,
+      "operation": "filter",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 186.30000001192093,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 196.5,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 900,
+        "attributes": 1300,
+        "text": 200
+      },
+      "retained": 100,
+      "rowCount": 100,
+      "valueWrites": 400,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 164.30599999999984,
+        "LayoutDurationMs": 3.7290000000000934,
+        "RecalcStyleDurationMs": 0.8909999999999751,
+        "TaskDurationMs": 194.64800000000082
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 2,
+      "operation": "restore",
+      "handlerMs": 0,
+      "flushMs": 1214,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1258.6000000238419,
+      "counts": {
+        "rowAdds": 900,
+        "rowRemoves": 0,
+        "attributes": 28300,
+        "text": 2000
+      },
+      "retained": 100,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 812.9130000000009,
+        "LayoutDurationMs": 181.80300000000017,
+        "RecalcStyleDurationMs": 145.899,
+        "TaskDurationMs": 1245.4020000000003
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 3,
+      "operation": "edit",
+      "handlerMs": 53,
+      "flushMs": 167.5,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 175.69999998807907,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4001,
+      "sharedRows": 999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 1.5999999642372131
+        },
+        "save": {
+          "calls": 1,
+          "ms": 1.4000000357627869
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.40000003576278687
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.40000003576278687
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 140.77299999999937,
+        "LayoutDurationMs": 8.453999999999962,
+        "RecalcStyleDurationMs": 0.27399999999988545,
+        "TaskDurationMs": 172.45800000000065
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 3,
+      "operation": "sort",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 742.1999999880791,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 775.8999999761581,
+      "counts": {
+        "rowAdds": 999,
+        "rowRemoves": 999,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.2999999523162842
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 260.2519999999995,
+        "LayoutDurationMs": 201.38199999999972,
+        "RecalcStyleDurationMs": 140.15500000000003,
+        "TaskDurationMs": 791.1269999999995
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 3,
+      "operation": "filter",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 410.60000002384186,
+      "forcedLayoutMs": 0.10000002384185791,
+      "twoRafMs": 419.80000001192093,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 900,
+        "attributes": 1300,
+        "text": 200
+      },
+      "retained": 100,
+      "rowCount": 100,
+      "valueWrites": 400,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.40000003576278687
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 339.322000000001,
+        "LayoutDurationMs": 5.438999999999972,
+        "RecalcStyleDurationMs": 1.1820000000000164,
+        "TaskDurationMs": 434.531999999999
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 3,
+      "operation": "restore",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 1170.699999988079,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1202.6000000238419,
+      "counts": {
+        "rowAdds": 900,
+        "rowRemoves": 0,
+        "attributes": 28300,
+        "text": 2000
+      },
+      "retained": 100,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.100000023841858
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.2999999523162842
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 831.9960000000002,
+        "LayoutDurationMs": 131.52300000000005,
+        "RecalcStyleDurationMs": 115.06700000000004,
+        "TaskDurationMs": 1226.3420000000008
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 4,
+      "operation": "edit",
+      "handlerMs": 101.30000001192093,
+      "flushMs": 281.4000000357628,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 291.9000000357628,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4001,
+      "sharedRows": 999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 3
+        },
+        "save": {
+          "calls": 1,
+          "ms": 2
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.5
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 215.83499999999844,
+        "LayoutDurationMs": 11.281000000000319,
+        "RecalcStyleDurationMs": 0.3329999999999167,
+        "TaskDurationMs": 307.05199999999877
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 4,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 600.6999999880791,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 624,
+      "counts": {
+        "rowAdds": 999,
+        "rowRemoves": 999,
+        "attributes": 13000,
+        "text": 2000
+      },
+      "retained": 1000,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.6000000238418579
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.20000004768371582
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 222.33300000000077,
+        "LayoutDurationMs": 151.93999999999974,
+        "RecalcStyleDurationMs": 162.20600000000007,
+        "TaskDurationMs": 639.443
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 4,
+      "operation": "filter",
+      "handlerMs": 0,
+      "flushMs": 201.4000000357628,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 213.9000000357628,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 900,
+        "attributes": 1300,
+        "text": 200
+      },
+      "retained": 100,
+      "rowCount": 100,
+      "valueWrites": 400,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 184.0679999999999,
+        "LayoutDurationMs": 2.9490000000000904,
+        "RecalcStyleDurationMs": 0.7150000000000212,
+        "TaskDurationMs": 229.12099999999924
+      }
+    },
+    {
+      "rows": 1000,
+      "iteration": 4,
+      "operation": "restore",
+      "handlerMs": 0,
+      "flushMs": 1151.800000011921,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1184.199999988079,
+      "counts": {
+        "rowAdds": 900,
+        "rowRemoves": 0,
+        "attributes": 28300,
+        "text": 2000
+      },
+      "retained": 100,
+      "rowCount": 1000,
+      "valueWrites": 4000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.40000003576278687
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.19999998807907104
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 741.0569999999997,
+        "LayoutDurationMs": 178.3959999999998,
+        "RecalcStyleDurationMs": 152.64499999999992,
+        "TaskDurationMs": 1209.3500000000006
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 0,
+      "operation": "edit",
+      "handlerMs": 124.39999997615814,
+      "flushMs": 386,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 412.80000001192093,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8001,
+      "sharedRows": 1999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 4.899999976158142
+        },
+        "save": {
+          "calls": 1,
+          "ms": 2.600000023841858
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.9000000357627869
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 310.88800000000026,
+        "LayoutDurationMs": 15.751999999999988,
+        "RecalcStyleDurationMs": 0.36000000000002697,
+        "TaskDurationMs": 398.80600000000044
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 0,
+      "operation": "sort",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 1526.4000000357628,
+      "forcedLayoutMs": 0.09999996423721313,
+      "twoRafMs": 1607.1000000238419,
+      "counts": {
+        "rowAdds": 1999,
+        "rowRemoves": 1999,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.399999976158142
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.5
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 499.6399999999994,
+        "LayoutDurationMs": 558.4530000000001,
+        "RecalcStyleDurationMs": 251.29900000000006,
+        "TaskDurationMs": 1628.7640000000004
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 0,
+      "operation": "filter",
+      "handlerMs": 0,
+      "flushMs": 681.0999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 695.1999999880791,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 1800,
+        "attributes": 2600,
+        "text": 400
+      },
+      "retained": 200,
+      "rowCount": 200,
+      "valueWrites": 800,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.10000002384185791
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 649.4980000000004,
+        "LayoutDurationMs": 6.10199999999983,
+        "RecalcStyleDurationMs": 1.3529999999999376,
+        "TaskDurationMs": 693.2230000000014
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 0,
+      "operation": "restore",
+      "handlerMs": 0,
+      "flushMs": 2919.2999999523163,
+      "forcedLayoutMs": 0.10000002384185791,
+      "twoRafMs": 3042.199999988079,
+      "counts": {
+        "rowAdds": 1800,
+        "rowRemoves": 0,
+        "attributes": 56600,
+        "text": 4000
+      },
+      "retained": 200,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.199999988079071
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.40000003576278687
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 1948.6679999999997,
+        "LayoutDurationMs": 507.45799999999997,
+        "RecalcStyleDurationMs": 255.954,
+        "TaskDurationMs": 3053.743000000001
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 1,
+      "operation": "edit",
+      "handlerMs": 175.5999999642372,
+      "flushMs": 571.0999999642372,
+      "forcedLayoutMs": 0.10000002384185791,
+      "twoRafMs": 597.8999999761581,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8001,
+      "sharedRows": 1999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 5.099999964237213
+        },
+        "save": {
+          "calls": 1,
+          "ms": 4.5
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 1.0999999642372131
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.100000023841858
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 487.4660000000004,
+        "LayoutDurationMs": 29.40100000000001,
+        "RecalcStyleDurationMs": 0.6779999999999564,
+        "TaskDurationMs": 627.7940000000015
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 1,
+      "operation": "sort",
+      "handlerMs": 0.20000004768371582,
+      "flushMs": 2283.600000023842,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 2356.100000023842,
+      "counts": {
+        "rowAdds": 1999,
+        "rowRemoves": 1999,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.5999999642372131
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.7000000476837158
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 718.2700000000004,
+        "LayoutDurationMs": 847.356,
+        "RecalcStyleDurationMs": 456.734,
+        "TaskDurationMs": 2418.018000000002
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 1,
+      "operation": "filter",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 581.6999999880791,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 588.3000000119209,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 1800,
+        "attributes": 2600,
+        "text": 400
+      },
+      "retained": 200,
+      "rowCount": 200,
+      "valueWrites": 800,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.09999996423721313
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 518.6339999999987,
+        "LayoutDurationMs": 7.4550000000002115,
+        "RecalcStyleDurationMs": 2.2599999999999287,
+        "TaskDurationMs": 625.1989999999985
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 1,
+      "operation": "restore",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 3226.7000000476837,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 3393.800000011921,
+      "counts": {
+        "rowAdds": 1800,
+        "rowRemoves": 0,
+        "attributes": 56600,
+        "text": 4000
+      },
+      "retained": 200,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.7999999523162842
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 1868.7680000000012,
+        "LayoutDurationMs": 603.3619999999997,
+        "RecalcStyleDurationMs": 318.1670000000001,
+        "TaskDurationMs": 3432.471000000003
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 2,
+      "operation": "edit",
+      "handlerMs": 209,
+      "flushMs": 551.4000000357628,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 567.3000000119209,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8001,
+      "sharedRows": 1999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 8.899999976158142
+        },
+        "save": {
+          "calls": 1,
+          "ms": 4.100000023841858
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 1.199999988079071
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.9000000357627869
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 470.2659999999987,
+        "LayoutDurationMs": 17.988000000000337,
+        "RecalcStyleDurationMs": 0.40500000000021075,
+        "TaskDurationMs": 594.8630000000002
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 2,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 2071.5,
+      "forcedLayoutMs": 0.30000001192092896,
+      "twoRafMs": 2222.699999988079,
+      "counts": {
+        "rowAdds": 1999,
+        "rowRemoves": 1999,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.7999999523162842
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.3999999761581421
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 558.5400000000006,
+        "LayoutDurationMs": 939.2599999999995,
+        "RecalcStyleDurationMs": 327.3309999999996,
+        "TaskDurationMs": 2304.0270000000014
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 2,
+      "operation": "filter",
+      "handlerMs": 0.30000001192092896,
+      "flushMs": 573.3000000119209,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 582.1999999880791,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 1800,
+        "attributes": 2600,
+        "text": 400
+      },
+      "retained": 200,
+      "rowCount": 200,
+      "valueWrites": 800,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.09999996423721313
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 528.3639999999998,
+        "LayoutDurationMs": 7.274000000000669,
+        "RecalcStyleDurationMs": 1.9770000000001176,
+        "TaskDurationMs": 657.9309999999978
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 2,
+      "operation": "restore",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 2294.100000023842,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 2371.699999988079,
+      "counts": {
+        "rowAdds": 1800,
+        "rowRemoves": 0,
+        "attributes": 56600,
+        "text": 4000
+      },
+      "retained": 200,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.399999976158142
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 1602.8260000000002,
+        "LayoutDurationMs": 280.98399999999924,
+        "RecalcStyleDurationMs": 271.0189999999999,
+        "TaskDurationMs": 2396.02
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 3,
+      "operation": "edit",
+      "handlerMs": 124.79999995231628,
+      "flushMs": 348.19999998807907,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 359,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8001,
+      "sharedRows": 1999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 3.600000023841858
+        },
+        "save": {
+          "calls": 1,
+          "ms": 2.800000011920929
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.699999988079071
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 301.8380000000001,
+        "LayoutDurationMs": 17.732000000000525,
+        "RecalcStyleDurationMs": 0.5860000000001975,
+        "TaskDurationMs": 381.54299999999705
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 3,
+      "operation": "sort",
+      "handlerMs": 0,
+      "flushMs": 1199.699999988079,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 1254.699999988079,
+      "counts": {
+        "rowAdds": 1999,
+        "rowRemoves": 1999,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 398.10300000000075,
+        "LayoutDurationMs": 400.6920000000003,
+        "RecalcStyleDurationMs": 239.6370000000001,
+        "TaskDurationMs": 1295.5860000000002
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 3,
+      "operation": "filter",
+      "handlerMs": 0.10000002384185791,
+      "flushMs": 420.19999998807907,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 450.5,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 1800,
+        "attributes": 2600,
+        "text": 400
+      },
+      "retained": 200,
+      "rowCount": 200,
+      "valueWrites": 800,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.40000003576278687
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 362.70299999999975,
+        "LayoutDurationMs": 4.762999999999629,
+        "RecalcStyleDurationMs": 1.0719999999997398,
+        "TaskDurationMs": 466.8760000000027
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 3,
+      "operation": "restore",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 2706.399999976158,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 2777,
+      "counts": {
+        "rowAdds": 1800,
+        "rowRemoves": 0,
+        "attributes": 56600,
+        "text": 4000
+      },
+      "retained": 200,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.699999988079071
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 1799.077999999998,
+        "LayoutDurationMs": 354.3529999999997,
+        "RecalcStyleDurationMs": 367.38700000000034,
+        "TaskDurationMs": 2807.3639999999996
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 4,
+      "operation": "edit",
+      "handlerMs": 149.30000001192093,
+      "flushMs": 431.30000001192093,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 461.0999999642372,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 0,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8001,
+      "sharedRows": 1999,
+      "model": {
+        "commit": {
+          "calls": 1,
+          "ms": 3.300000011920929
+        },
+        "save": {
+          "calls": 1,
+          "ms": 2.800000011920929
+        },
+        "summarize": {
+          "calls": 2,
+          "ms": 0.7999999523162842
+        },
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.800000011920929
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 353.193000000001,
+        "LayoutDurationMs": 19.82300000000059,
+        "RecalcStyleDurationMs": 0.40999999999957737,
+        "TaskDurationMs": 493.0359999999965
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 4,
+      "operation": "sort",
+      "handlerMs": 0.09999996423721313,
+      "flushMs": 1451.800000011921,
+      "forcedLayoutMs": 0.09999996423721313,
+      "twoRafMs": 1522.5999999642372,
+      "counts": {
+        "rowAdds": 1999,
+        "rowRemoves": 1999,
+        "attributes": 26000,
+        "text": 4000
+      },
+      "retained": 2000,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 2.100000023841858
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0.7999999523162842
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 649.993000000002,
+        "LayoutDurationMs": 315.8139999999996,
+        "RecalcStyleDurationMs": 337.793,
+        "TaskDurationMs": 1592.4890000000005
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 4,
+      "operation": "filter",
+      "handlerMs": 0.19999998807907104,
+      "flushMs": 415.5999999642372,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 423,
+      "counts": {
+        "rowAdds": 0,
+        "rowRemoves": 1800,
+        "attributes": 2600,
+        "text": 400
+      },
+      "retained": 200,
+      "rowCount": 200,
+      "valueWrites": 800,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 0.30000001192092896
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 0
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 386.8749999999999,
+        "LayoutDurationMs": 4.935999999999829,
+        "RecalcStyleDurationMs": 1.535000000000064,
+        "TaskDurationMs": 442.4539999999979
+      }
+    },
+    {
+      "rows": 2000,
+      "iteration": 4,
+      "operation": "restore",
+      "handlerMs": 0,
+      "flushMs": 2863.100000023842,
+      "forcedLayoutMs": 0,
+      "twoRafMs": 2942.899999976158,
+      "counts": {
+        "rowAdds": 1800,
+        "rowRemoves": 0,
+        "attributes": 56600,
+        "text": 4000
+      },
+      "retained": 200,
+      "rowCount": 2000,
+      "valueWrites": 8000,
+      "sharedRows": null,
+      "model": {
+        "visibleRows": {
+          "calls": 1,
+          "ms": 1.4000000357627869
+        },
+        "summarize": {
+          "calls": 1,
+          "ms": 16.19999998807907
+        }
+      },
+      "browser": {
+        "ScriptDurationMs": 1851.3659999999986,
+        "LayoutDurationMs": 488.9600000000005,
+        "RecalcStyleDurationMs": 361.526,
+        "TaskDurationMs": 2965.245000000003
+      }
+    }
+  ]
+}
